@@ -1,0 +1,54 @@
+﻿@model ProductListViewModel
+@if (Model.Products == null || Model.Products.Count == 0)
+{
+    <span class="alert alert-danger">No Product exist</span>
+}
+else
+{
+    <a class="btn btn-xs btn-success" asp-action="Index" asp-controller="Product" asp-route-page="@Model.CurrentPage" asp-route-category="@Model.CurrentCategory" asp-route-sort="@Model.Sorting">@Model.Sorting</a>
+    <input class="form-control" id="search-input" style="margin: 10px 0px" />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Unit Price</th>
+                <th>UnitsInStock</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="t-body">
+
+@*             @foreach (var item in Model.Products)
+            {
+                <tr>
+                    <td>
+                        @item.ProductName
+                    </td>
+                    <td>
+                        @item.UnitPrice
+                    </td>
+                    <td>
+                        @item.UnitsInStock
+                    </td>
+                    <td>
+                        <a href="/Cart/AddToCart?productId=@item.ProductId&page=@Model.CurrentPage&category=@Model.CurrentCategory"
+                           class="btn btn-xs btn-success">Add To Cart</a>
+                    </td>
+                </tr>
+            } *@
+        </tbody>
+    </table>
+
+    <product-list-pager current-category="@Model.CurrentCategory"
+                        current-page="@Model.CurrentPage"
+                        page-count="@Model.PageCount"
+                        page-size="@Model.PageSize">
+    </product-list-pager>
+
+}
+
+<script>
+    var modelValue = @Html.Raw(Json.Serialize(Model.Products));
+</script>
+
+<script src="~/js/site.js" />
